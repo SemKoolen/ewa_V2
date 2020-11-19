@@ -1,0 +1,32 @@
+{%  extends 'base.html.twig' %}
+
+{% block content %}
+
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6 ">
+                    <h2>Beheer</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container" >
+    <section class="nieuwsberichten">
+        <div class="row justify-center-md-center">
+
+            <a href="{{ path('beheerNieuws') }}"><button>Nieuws</button></a>
+            <a href="{{ path('beheerPartners') }}"><button>Partners</button></a>
+            <a href="{{ path('beheerInformatie') }}"><button>Informatie</button></a>
+            <a href="{{ path('beheerContacten') }}"><button>Contacten</button></a>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+
+
+

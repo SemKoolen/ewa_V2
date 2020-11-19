@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partners{% endblock %}
+
+{% block content %}
+    <section class="nieuwsOverzicht">
+<div class="container text-center" >
+    <div class="title">
+        <div class="row justify-center-md-center">
+            <div class="col-md-12 col-lg-12 col-sm-6 ">
+                <h2></h2></div></div></div></div></section>
+<div class="container " >
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Naam</th>
+                <td>{{ partner.name }}</td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>{{ partner.website }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td><div class="beheer"><img src="{{  vich_uploader_asset(partner, 'imageFile') }}" alt="{{ partner.name }}" /></div></td>
+            </tr>
+            <tr>
+                <th>Aangemaakt</th>
+                <td>{{ partner.created ? partner.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Aangepast</th>
+                <td>{{ partner.updated ? partner.updated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="nieuwsberichten">
+        <a href="{{ path('partner_edit', {'id': partner.id}) }}">
+            <button style="margin-left:0px">Wijzigen</button></a><a href="{{ path('beheerPartners') }}">
+            <button style="margin-left:0px">Naar Overzicht</button></a>
+    </div>
+
+
+    {{ include('admin/partner/_delete_form.html.twig') }}
+</div>
+{% endblock %}

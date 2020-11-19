@@ -1,0 +1,53 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}Nieuwsberichten | EWA Haaglanden{% endblock %}
+
+{% block description %}
+Samenvatting nieuwsberichten pagina.
+{% endblock %}
+
+{% block content %}
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6 ">
+                    <h2>Nieuws</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container" >
+    <section class="nieuwsberichten">
+        <div class="row justify-center-md-center">
+            {% for nieuwsbericht in news %}
+
+                <!--    start  nieuwsberichten -->
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                   <div class="container">
+                        <div class="card">
+                            <div class="cardimg">
+                        <img class="card-img-top" src="../images/news/{{ nieuwsbericht.image }}" alt="Card image cap" /></div>
+                            <div class="card-body">
+                                <h5>{{ nieuwsbericht.title }}</h5>
+                        <p >{{nieuwsbericht.content|raw}}</p>
+                            </div>
+                            <a href="{{ path('showNieuwsdetail', {id:nieuwsbericht.id}) }}"><button >Lees meer</button></a>
+                        </div>
+                    </div>
+                </div>
+                <!--    einde  nieuwsberichten -->
+                
+            {% endfor %}
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,55 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}Informatie | EWA Haaglanden{% endblock %}
+
+{% block description %}
+Samenvatting informatiep pagina.
+{% endblock %}
+
+{% block content %}
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6 ">
+                    <h2>Informatie</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" >
+    <section class="nieuwsberichten">
+        <div class="row justify-center-md-center">
+            {% for informatie in informatietotaal %}
+                <!--    start  informatief document -->
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body">
+                                <a id="{{ informatie.name }}" style="display: none"></a>
+                                <h5>{{ informatie.name }}</h5>
+                                <p >{{informatie.description |raw}}</p>
+                            </div>
+                            {% if informatie.file != NULL %}
+                            <a href="{{ asset('images/doc/' ~ informatie.file ) }}" target="_blank"><button >Download</button></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!--    einde  informatief document -->
+            {% endfor %}
+            {% if informatietotaal|length == 1 %}
+                <div class="nieuwsberichten">
+                    <a href="{{ path('showInformatie') }}">
+                        <button style="margin-left:0px">Naar Overzicht</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+

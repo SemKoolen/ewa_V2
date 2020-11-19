@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nieuwsoverzicht{% endblock %}
+
+{% block content %}
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6 ">
+                    <h2>Beheer</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="nieuwsberichten">
+    <div class="container" >
+        <div class="row justify-center-md-center">
+
+            <a href="{{ path('beheerNieuws') }}"><button>Nieuws</button></a>
+            <a href="{{ path('beheerPartners') }}"><button>Partners</button></a>
+            <a href="{{ path('beheerInformatie') }}"><button>Informatie</button></a>
+            <a href="{{ path('beheerContacten') }}"><button>Contacten</button></a>
+        </div>
+        <div class="title beheerPortal">
+            <div class="container text-center" >
+                <div class="row justify-center-md-center">
+                    <div class="col-md-12 col-lg-12 col-sm-6 ">
+                        <h2>Contacten</h2></div></div></div>
+        </div>
+
+
+    </div></section>
+    <div class="container " >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>E-mail</th>
+                <th>Bericht</th>
+                <th>Nieuwsbrief</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacten %}
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.message }}</td>
+                <td>
+                    {% if contact.subscribed == 0 %}
+                        Nee
+                    {% else %}
+                        Ja
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="post" action="{{ path('contact_delete', {'id': contact.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
+                </td>
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Nog geen aanmeldingen.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

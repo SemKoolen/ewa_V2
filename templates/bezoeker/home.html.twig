@@ -1,0 +1,195 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}EWA Haaglanden{% endblock %}
+
+{% block description %}
+Ewa Haaglanden is een samenwerkingsverband tussen bedrijven, gemeenten, 
+ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden. 
+Wij leiden jonge mensen op naar een diploma en een fijne werkplek. 
+Wij leiden werknemers verder op. 
+En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<section class="headIntro">
+    <div class="container">
+        <div class="page-header clear-filter">
+            <img src="{{ asset('images/EWAHaaglanden_bg.jpg') }}" alt="EWA Haaglanden">
+        </div>
+    </div>
+</section>
+<section class="intro">
+    <div class="container text-center" >
+        <div class="row justify-center-md-center">
+            <div class="col-md-12 col-lg-12 col-sm-12 ">
+                               <p>Ewa Haaglanden is een samenwerkingsverband tussen bedrijven, gemeenten, ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden.
+                                   Wij leiden jonge mensen op naar een diploma en een fijne werkplek. Wij leiden werknemers verder op.
+                                   En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--    start youtube video-->
+<section class="video" >
+    <div id="VideoSection" style>
+        <div class="container" style="text-align: center; padding-bottom:5%;">
+            <h2 class="title" >Ewa Haaglanden in 3 minuten</h2>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                        class="embed-responsive-item"
+                        src="https://www.youtube-nocookie.com/embed/bsPkTBn0s7I?
+                        allowfullscreen=1&rel=0"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+<!--    einde video -->
+
+
+<!--    start drie nieuwsberichten -->
+<section class="nieuws">
+    <div class="container text-center" >
+        <div class="row justify-center-md-center">
+                <div class="col-12 ">
+                <h2>Laatste berichten</h2>
+                    <div class="container">
+                        <div class="card-deck">
+                        <div class="row justify-center-md-center">
+                            {% for nieuws in nieuwsberichten %}
+                            <div class="card col-sm-12 col-lg-4 col-md-6 ">
+                                <img class="card-img-top" src="{{ asset('images/news/' ~ nieuws.image) }}" alt="Card image cap">
+                                <div class="card-img-overlay" onclick="showNews({{ nieuws.id }})">
+                                    <h5 class="card-title">{{nieuws.title}}</h5>
+                                    <p class="card-text"><small class="text-muted"><a id="newsLink-{{ nieuws.id}}" href="{{ path('showNieuwsdetail', {id: nieuws.id}) }}">Lees meer...</a></small></p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--    einde drie nieuwsberichten -->
+
+
+<!--    begin contactformulier -->
+<section class="contact" >
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="contactIntro text-center">
+                <h2 class="title" >Wilt u meer weten over Ewa Haaglanden en de mogelijkheden voor uw organisatie?</h2>
+                <p
+                        class="description"
+                        style="color:black; margin-bottom:2.5%"
+                >Neem dan vrijblijvend contact met ons op</p>
+            </div>
+            <!--routing naar contact mailen-->
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                <div class="row">
+                    <div class="col-lg-12 ml-auto mr-auto col-md-12">
+                        {{ form_errors(form) }}
+                    </div>
+                        <div class="col-lg-12 ml-auto mr-auto col-md-12">
+                            <div class="row">
+                                {{ form_label(form.name, 'Naam',{
+            'label_attr' :{'class': "col-sm-2 col-form-label" }}) }}
+                                <div class="col-sm-10">
+                                {{ form_widget(form.name, {'attr': {'class': 'big_form', 'placeholder':"Naam... "}}) }}
+                                {{ form_row(form.name) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 ml-auto mr-auto col-md-12">
+                            <div class="row">
+                           {{ form_label(form.email, 'E-mail',{
+            'label_attr' :{'class': "col-sm-2 col-form-label" }}) }}
+                                <div class="col-sm-10">
+                            {{ form_widget(form.email, {'attr': {'class': 'big_form', 'placeholder':"E-mail..."}}) }}
+                            {{ form_row(form.email) }}
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-12 ml-auto mr-auto col-md-12">
+                    <div class="row">
+                        {{ form_label(form.message, 'Bericht',{
+            'label_attr' :{'class': "col-sm-2 col-form-label" }}) }}
+                        <div class="col-sm-10">
+                        {{ form_widget(form.message, {'attr': {'class': 'big_form form-control'}}) }}
+                        {{ form_row(form.message) }}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-lg-12 ml-auto mr-auto col-md-12" style="text-align: center">
+
+                        {{ form_row(form.subscribed) }}
+                        <div>
+                            <label>Ik ga akkoord met de </label>
+                            <div id="privacyVerklaringPopUp" style="z-index: 9999">
+                            <div class="popuptext">
+                                De door u ingevulde gegevens worden alleen bij ons intern gebruikt,
+                                en niet aan derden partijen verstreken.
+                            </div>
+                            <span id="PrivacyVerklaringLink" class="fakeLink" data-toggle="popover">Privacyverklaring</span>
+                        </div>
+                            <input type="checkbox" required>  
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-bottom:2%; margin-top:2%;text-align: center">
+                        {{ form_row(form.save) }}
+                        {{ form_widget(form.save, {'attr': {'class': 'linedthin'}}) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+</section>
+<!-- einde contactformulier-->
+
+
+<!--    begin partners slider-->
+<section class="nieuwsOverzicht">
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="contactIntro text-center">
+                <h2 class="title" >Onze Partners</h2></div></div></div></section>
+    <div class="fotocontainer">
+        <div class="photobanner">
+            {%  set first=true %}
+            {% for partner in partners %}
+
+                {% if first == true  %}
+                    <img src="{{ asset('/images/news/blanco.png') }}" /> <img src="{{ asset('/images/news/blanco.png') }}" />
+                    <img class="first" src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
+                    {% set first= false %}
+                {%  else %}
+                    <img src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
+                {%  endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!--    einde partners slider-->
+{% endblock  %}
+
+
+{% block script %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('home') }}
+    <script>
+        function showNews(id){
+            link = document.getElementById("newsLink-" + id);
+            link.click();
+        }
+    </script>
+
+{% endblock %}
