@@ -20,6 +20,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class BezoekerController extends AbstractController
 {
@@ -50,8 +51,8 @@ class BezoekerController extends AbstractController
             if (empty($name)) {
                 throw new BadRequestHttpException('name cannot be empty');
             }
-            $email = $form->get('email')->getData();
-            if (empty($email)) {
+            $emailAddress = $form->get('email')->getData();
+            if (empty($emailAddress)) {
                 throw new BadRequestHttpException('email cannot be empty');
             }
             $message = $form->get('message')->getData();
@@ -61,23 +62,34 @@ class BezoekerController extends AbstractController
 // contact wishes to receive newsletter
             $subscribed = $form->get('subscribed')->getData();
             $contact->setName($name);
-            $contact->setEmail($email);
+            $contact->setEmail($emailAddress);
             $contact->setMessage($message);
             $contact->setSubscribed($subscribed);
 // make email
             $html = "<p>Beste mevrouw A. Waarts, </p>
-                     <p>U heeft een bericht ontvangen via de website van EWA Haaglanden van $email.  </p>
+                     <p>U heeft een bericht ontvangen via de website van EWA Haaglanden van $emailAddress.  </p>
                      <p>$message</p>";
             
             if ($subscribed == true) {
-                $html += "<p>Deze persoon heeft zich ook aangemeld voor de nieuwsbrief</p>";
+                $html .= "<p>Deze persoon heeft zich ook aangemeld voor de nieuwsbrief</p>";
             }
 
             $email = (new Email())
-                ->from($email)
-                ->to('j.kool@rocmondriaan.nl')
+                ->from($emailAddress)
+                ->to('ewahaaglanden@rocmondriaan.nl')
                 ->subject('E-mail van EWA Haaglanden met bericht')
                 ->html($html);
+
+            $mailer->send($email);
+            $email = (new TemplatedEmail())
+                ->from('no-reply@ewahaaglanden.nl')
+                ->to($emailAddress)
+                ->subject('Uw bericht is ontvangen')
+                ->htmlTemplate('emails/registration.html.twig')
+                ->context([
+                    'name' => $name,
+                ])
+                ->embedFromPath('/path/to/images/signature.gif', 'footer-signature');
 
             $mailer->send($email);
             $this->addFlash('success',"Hartelijk dank, uw bericht is verzonden.");

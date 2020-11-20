@@ -54,11 +54,11 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
 <section class="nieuws">
     <div class="container text-center" >
         <div class="row justify-center-md-center">
-                <div class="col-12 ">
-                <h2>Laatste berichten</h2>
-                    <div class="container">
+            <div class="col-12 ">
+                <div class="container">
+                    <h2>Laatste berichten</h2>
+                    <div class="row justify-center-md-center">
                         <div class="card-deck">
-                        <div class="row justify-center-md-center">
                             {% for nieuws in nieuwsberichten %}
                             <div class="card col-sm-12 col-lg-4 col-md-6 ">
                                 <img class="card-img-top" src="{{ asset('images/news/' ~ nieuws.image) }}" alt="Card image cap">

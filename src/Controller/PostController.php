@@ -29,8 +29,8 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
 //        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->isSubmitted() ) {
-                $title = $form->get('title')->getData();
+        if ($form->isSubmitted() ) {
+            $title = $form->get('title')->getData();
             if (empty($title)) {
                 throw new BadRequestHttpException('title cannot be empty');
             }
@@ -43,11 +43,11 @@ class PostController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('beheerNieuws');
         }
-            return $this->render('admin/post/new.html.twig', [
-                'post' => $post,
-                'form' => $form->createView(),
-            ]);
-        }
+        return $this->render('admin/post/new.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})

@@ -46,7 +46,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for document in documents %}
+        {% for document in documents|sort((a, b) => b.created <=> a.created) %}
             <tr class="d-flex">
                 <td class="col-2"><a href="{{ path('document_show', {'id': document.id}) }}">{{ document.name }}</a></td>
                 <td class="col-3" style="word-wrap: break-word">{{ document.description|raw }}</td>
