@@ -88,8 +88,7 @@ class BezoekerController extends AbstractController
                 ->htmlTemplate('emails/registration.html.twig')
                 ->context([
                     'name' => $name,
-                ])
-                ->embedFromPath('/path/to/images/signature.gif', 'footer-signature');
+                ]);
 
             $mailer->send($email);
             $this->addFlash('success',"Hartelijk dank, uw bericht is verzonden.");
