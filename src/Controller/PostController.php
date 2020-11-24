@@ -72,7 +72,7 @@ class PostController extends AbstractController
         ]);
     }
     /**
- * @Route("/{id}", name="post_delete", methods={"DELETE"})
+ * @Route("/{id}/delete", name="post_delete", methods={"GET"})
  */
     public function delete(Request $request, $id): Response
     {

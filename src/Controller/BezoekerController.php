@@ -155,15 +155,14 @@ class BezoekerController extends AbstractController
     }
 
     /**
-     * @Route("/Informatie/{name}", name="showInformatieSection")
+     * @Route("/Informatie/{id}", name="showInformatieDetails")
      */
-    public function findAllIActionJump(Request $request, $name)
+    public function showInformationDetails(Request $request, $id)
     {
-        $informatie = $this->em->getRepository(Document::class)->findOneBy(['name' => $name]);
+        $informatie = $this->em->getRepository(Document::class)->findOneBy(['id' => $id]);
 
-        return $this->render('bezoeker/showInformatie.html.twig', [
-            'informatietotaal' => [$informatie],
-            'name' => $name,
+        return $this->render('bezoeker/showInformatieDetails.html.twig', [
+            'informatie' => $informatie,
         ]);
     }
 }

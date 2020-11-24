@@ -23,8 +23,6 @@ class PostType extends AbstractType
             ->add('reaction')
             ->add('imageFile', VichImageType::class, array(
                 'required'      => false))
-            ->add('created')
-            ->add('updated')
         ;
     }
 

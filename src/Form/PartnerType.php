@@ -17,8 +17,6 @@ class PartnerType extends AbstractType
             ->add('website')
             ->add('imageFile', VichImageType::class, array(
         'required'      => false))
-            ->add('created')
-            ->add('updated')
         ;
     }
 

@@ -62,7 +62,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
                             {% for nieuws in nieuwsberichten %}
                             <div class="card col-sm-12 col-lg-4 col-md-6 ">
                                 <img class="card-img-top" src="{{ asset('images/news/' ~ nieuws.image) }}" alt="Card image cap">
-                                <div class="card-img-overlay" onclick="showNews({{ nieuws.id }})">
+                                <div class="card-img-overlay" onclick="showNews('{{ nieuws.id }}')">
                                     <h5 class="card-title">{{nieuws.title}}</h5>
                                     <p class="card-text"><small class="text-muted"><a id="newsLink-{{ nieuws.id}}" href="{{ path('showNieuwsdetail', {id: nieuws.id}) }}">Lees meer...</a></small></p>
                                 </div>

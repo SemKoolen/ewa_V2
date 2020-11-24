@@ -32,9 +32,14 @@ Samenvatting informatiep pagina.
                                 <h5>{{ informatie.name }}</h5>
                                 <p >{{informatie.description |raw}}</p>
                             </div>
-                            {% if informatie.file != NULL %}
-                            <a href="{{ asset('images/doc/' ~ informatie.file ) }}" target="_blank"><button >Download</button></a>
-                            {% endif %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{ path('showInformatieDetails', {id:informatie.id}) }}" target="_blank"><button style="margin: 20px; float: right">Lees meer</button></a>
+                                    {% if informatie.file != NULL %}
+                                        <a href="{{ asset('images/doc/' ~ informatie.file ) }}" target="_blank"><button style="margin: 20px;">Download</button></a>
+                                    {% endif %}
+                                </div>     
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,4 +57,3 @@ Samenvatting informatiep pagina.
 </div>
 
 {% endblock %}
-

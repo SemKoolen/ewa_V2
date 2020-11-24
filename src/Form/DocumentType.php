@@ -39,8 +39,6 @@ class DocumentType extends AbstractType
                     ])
                 ],
             ])
-            ->add('created')
-            ->add('updated')
         ;
     }
 

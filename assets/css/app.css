@@ -184,10 +184,12 @@ section{
 }
 
 .nieuwsberichten .card .card-body{
+    height: 300px;
     overflow: hidden;
     padding-bottom: 0;
     margin-bottom: 1.25rem;
 }
+
 .nieuwsberichten button{
     margin: 0 auto 10px 100px;
 }

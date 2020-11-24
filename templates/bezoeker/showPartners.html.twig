@@ -26,14 +26,20 @@ Samenvatting partners pagina.
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
                    <div class="container">
                         <div class="card">
-                            <div class="card-img"> <img class="card-img-top" src="../{{  vich_uploader_asset(partner, 'imageFile') }}" alt="{{ partner.name }}" /></div>
-                                 <div class="card-body" >
-
-                                     <h5>{{ partner.name }}</h5>
-                                     <a href="{{ partner.website }}" target='_blank'><button >Website</button></a>
-
-
-                                 </div>
+                            <div class="card-img"> 
+                                <img class="card-img-top" src="../{{  vich_uploader_asset(partner, 'imageFile') }}" alt="{{ partner.name }}" />
+                            </div>
+                            <div class="card-body" >
+                                <h5>{{ partner.name }}</h5>
+                                {% set website = partner.website %}
+                                {% if website|slice(0, 8) == "https://" %}
+                                    {% set website = website|slice(8) %}
+                                {% endif %}
+                                {% if website|slice(0, 4) == "www." %}
+                                    {% set website = website|slice(4) %}
+                                {% endif %}
+                                <a href="https://www.{{ website }}" target='_blank'><button >Website</button></a>
+                            </div>
                         </div>
                     </div>
                 </div>
