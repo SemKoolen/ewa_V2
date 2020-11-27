@@ -97,4 +97,22 @@ class AdminController extends AbstractController
     }
 
 
+    public function makeNavBar($current){
+        $currentRoute = $current;
+        $routes = [
+            'Home' => 'homepage',
+            'Nieuws' => 'showNieuws',
+            'Partners' => 'showPartners',
+            'Informatie' => 'showInformatie',
+            'Beheer' => 'showBeheer',
+            'Uitloggen' => 'app_logout',
+        ];
+
+        return $this->render('navBar.html.twig', [
+            'routes' => $routes,
+            'currentRoute' => $currentRoute,
+        ]);
+    }
+
+
 }

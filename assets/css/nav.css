@@ -1,10 +1,18 @@
-.navbar {
-    height: 60px;
-    /* margin-bottom: 20px; */
-    background-color: white;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    width: 100%;
     opacity: 90%;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, .45);
 }
+
+.navbar {
+    height: 70px;
+}
+
 .navbar-light .navbar-nav .nav-link {
     color: black;
 }
@@ -30,4 +38,24 @@
     display: -ms-flexbox !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
+}
+
+.collapse:not(.show){
+    width: 100%;
+}
+
+.collapsing {
+    width: 100%;
+}
+
+.collapsing ul {
+    padding: 0 20px;
+}
+
+.collapse.show {
+    width: 100%;
+}
+
+.collapse.show ul {
+    padding: 0 20px;
 }

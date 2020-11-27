@@ -1,0 +1,81 @@
+#mainNav {
+    height: 72px;
+    padding: 8px 0;
+    align-items: center;
+    font-weight: 700;
+    opacity: 1;
+    background-color: white;
+    opacity: 0.8;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .15);
+}
+
+@media (max-width: 405px) {
+    #mainNav {
+        padding: 8px;
+        height: 88px;
+    }
+    .content {
+        padding-top: 88px;
+    }
+}
+
+.navbar .navbar-brand {
+    max-width: 100%;
+}
+
+.navbar .navbar-brand img{
+    display: block;
+    max-width: 100%;
+    max-height: 56px;
+}
+
+.navbar .navbar-toggle {
+    background-color:blue;
+    border: 2px solid green;
+    max-width: 100%;
+}
+
+.navbar .navbar-toggler i{
+    font-size: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    background-color: black;
+}
+
+
+.navbar-collapse.collapsing li{
+    padding: 16px 20px;
+    background-color: rgb(212, 212, 212);
+}
+
+.navbar-collapse.collapsing a{
+    padding: 0!important;
+}
+
+.navbar-collapse.show li{
+    padding: 16px 20px;
+    background-color: rgb(212, 212, 212);
+}
+
+.navbar-collapse.show a{
+    padding: 0!important;
+}
+
+
+.navbar-collapse:not(.show) {
+    margin-top: 0;
+    /* background-color: #08253f; */
+}
+
+
+.navbar-collapse:not(.show) > li {
+    padding: 0;
+}
+
+.navbar-collapse:not(.show) > a{
+    padding: 16px, 8px;
+}
+
+.navbar-collapse.show li:hover{
+    background-color: cyan;
+}

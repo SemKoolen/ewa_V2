@@ -1,9 +1,18 @@
-document.getElementById("PrivacyVerklaringLink").addEventListener("mouseenter", function ( event ){
-    // $("#privacyVerklaringPopUp").toggleClass("show")
-    $(".popuptext").toggleClass("show")
-});
+import '../css/base/home.css';
+import $ from 'jquery';
 
-document.getElementById("PrivacyVerklaringLink").addEventListener("mouseleave", function ( event ){
-    // $("#privacyVerklaringPopUp").toggleClass("show")
-    $(".popuptext").toggleClass("show")
-});
+
+window.onload = (event) => {
+    document.getElementById("PrivacyVerklaringLink").addEventListener("mouseenter", function ( event ){
+        // $("#privacyVerklaringPopUp").toggleClass("show")
+        $(".popuptext").toggleClass("show")
+    });
+    
+    document.getElementById("PrivacyVerklaringLink").addEventListener("mouseleave", function ( event ){
+        // $("#privacyVerklaringPopUp").toggleClass("show")
+        $(".popuptext").toggleClass("show")
+    });
+    console.log('page is fully loaded');
+};
+
+

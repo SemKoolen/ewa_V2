@@ -1,0 +1,14 @@
+<ul class="navbar-nav ml-auto">
+    {# {{ dump(routes) }} #}
+{% for name, route in routes %}
+
+    {% if route == currentRoute %}
+        <li class="current nav-item mx-0 mx-lg-1">
+    {% else %}
+        <li class="nav-item mx-0 mx-lg-1">
+    {% endif %}
+
+        <a class="nav-link py-3 px-0 px-lg-2 rounded" href="{{ path(route) }}">{{ name }}</a>
+    </li>
+{% endfor %}
+</ul>

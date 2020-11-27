@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
+
 class BezoekerController extends AbstractController
 {
     private EntityManagerInterface $em;
@@ -31,8 +32,9 @@ class BezoekerController extends AbstractController
         $this->em = $em;
         $this->serializer = $serializer;
     }
+
     /**
-     * @Route("/", name="homeCreate")
+     * @Route("/", name="homepage")
      */
     function indexAction(Request $request, MailerInterface $mailer)
     {
@@ -104,7 +106,7 @@ class BezoekerController extends AbstractController
 
     }
     /**
-     * @Route("/Nieuws/{id}", name="showNieuwsdetail")
+     * @Route("/nieuws/{id}", name="showNieuwsdetail")
      */
     function showNieuwsDetailsAction(Request $request, $id)
     {
@@ -112,10 +114,82 @@ class BezoekerController extends AbstractController
         return $this->render('bezoeker/showNieuwsbericht.html.twig', [
             'nieuwsbericht' => $nieuwsbericht,
         ]);
-
     }
+
     /**
-     * @Route("/Nieuws", name="showNieuws")
+     * @Route("/test", name="showTest")
+     */
+    function showTestAction(Request $request, MailerInterface $mailer)
+    {   
+        $nieuwsberichten = $this->em->getRepository(Post::class)->findLatest();
+        $partners=$this->em->getRepository(Partner::class)->findAll();
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+// create new contact
+            $contact = $form->getData();
+            $name = $form->get('name')->getData();
+            if (empty($name)) {
+                throw new BadRequestHttpException('name cannot be empty');
+            }
+            $emailAddress = $form->get('email')->getData();
+            if (empty($emailAddress)) {
+                throw new BadRequestHttpException('email cannot be empty');
+            }
+            $message = $form->get('message')->getData();
+            if (empty($message)) {
+                throw new BadRequestHttpException('message cannot be empty');
+            }
+// contact wishes to receive newsletter
+            $subscribed = $form->get('subscribed')->getData();
+            $contact->setName($name);
+            $contact->setEmail($emailAddress);
+            $contact->setMessage($message);
+            $contact->setSubscribed($subscribed);
+// make email
+            $html = "<p>Beste mevrouw A. Waarts, </p>
+                     <p>U heeft een bericht ontvangen via de website van EWA Haaglanden van $emailAddress.  </p>
+                     <p>$message</p>";
+            
+            if ($subscribed == true) {
+                $html .= "<p>Deze persoon heeft zich ook aangemeld voor de nieuwsbrief</p>";
+            }
+
+            $email = (new Email())
+                ->from($emailAddress)
+                ->to('ewahaaglanden@rocmondriaan.nl')
+                ->subject('E-mail van EWA Haaglanden met bericht')
+                ->html($html);
+
+            $mailer->send($email);
+            $email = (new TemplatedEmail())
+                ->from('no-reply@ewahaaglanden.nl')
+                ->to($emailAddress)
+                ->subject('Uw bericht is ontvangen')
+                ->htmlTemplate('emails/registration.html.twig')
+                ->context([
+                    'name' => $name,
+                ]);
+
+            $mailer->send($email);
+            $this->addFlash('success',"Hartelijk dank, uw bericht is verzonden.");
+            $this->getDoctrine()->getManager()->persist($contact);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('homeCreate');
+        }
+        return $this->render('test.html.twig', [
+            'form' => $form->createView(),
+            'nieuwsberichten' => $nieuwsberichten,
+            'partners'=>$partners,
+        ]);
+    }
+
+    /**
+     * @Route("/nieuws", name="showNieuws")
      */
     public function findAllNbAction()
     {
@@ -132,7 +206,7 @@ class BezoekerController extends AbstractController
     }
 
     /**
-     * @Route("/Partners", name="showPartners")
+     * @Route("/partners", name="showPartners")
      */
     public function findAllPAction()
     {
@@ -143,7 +217,7 @@ class BezoekerController extends AbstractController
         ]);
     }
     /**
-     * @Route("/Informatie", name="showInformatie")
+     * @Route("/informatie", name="showInformatie")
      */
     public function findAllIAction()
     {
@@ -155,7 +229,7 @@ class BezoekerController extends AbstractController
     }
 
     /**
-     * @Route("/Informatie/{id}", name="showInformatieDetails")
+     * @Route("/informatie/{id}", name="showInformatieDetails")
      */
     public function showInformationDetails(Request $request, $id)
     {
@@ -163,6 +237,22 @@ class BezoekerController extends AbstractController
 
         return $this->render('bezoeker/showInformatieDetails.html.twig', [
             'informatie' => $informatie,
+        ]);
+    }
+
+
+    public function makeNavBar($current){
+        $currentRoute = $current;
+        $routes = [
+            'Home' => 'homepage',
+            'Nieuws' => 'showNieuws',
+            'Partners' => 'showPartners',
+            'Informatie' => 'showInformatie',
+        ];
+
+        return $this->render('navBar.html.twig', [
+            'routes' => $routes,
+            'currentRoute' => $currentRoute,
         ]);
     }
 }

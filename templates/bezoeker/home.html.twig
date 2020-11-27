@@ -1,4 +1,4 @@
-{%  extends 'base.html.twig' %}
+{%  extends 'test.html.twig' %}
 
 {% block title %}EWA Haaglanden{% endblock %}
 
@@ -8,6 +8,11 @@ ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden.
 Wij leiden jonge mensen op naar een diploma en een fijne werkplek. 
 Wij leiden werknemers verder op. 
 En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.
+{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{{ encore_entry_link_tags('home') }}
 {% endblock %}
 
 {% block content %}
@@ -21,11 +26,13 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
 </section>
 <section class="intro">
     <div class="container text-center" >
-        <div class="row justify-center-md-center">
-            <div class="col-md-12 col-lg-12 col-sm-12 ">
-                               <p>Ewa Haaglanden is een samenwerkingsverband tussen bedrijven, gemeenten, ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden.
-                                   Wij leiden jonge mensen op naar een diploma en een fijne werkplek. Wij leiden werknemers verder op.
-                                   En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.</p>
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-md-9 col-lg-10 col-sm-11 ">
+                <p>
+                    Ewa Haaglanden is een samenwerkingsverband tussen bedrijven, gemeenten, ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden.
+                    Wij leiden jonge mensen op naar een diploma en een fijne werkplek. Wij leiden werknemers verder op.
+                    En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.
+                </p>
             </div>
         </div>
     </div>
@@ -40,7 +47,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe
                         class="embed-responsive-item"
-                        src="https://www.youtube-nocookie.com/embed/bsPkTBn0s7I?
+                        src="https://www.youtube.com/embed/bsPkTBn0s7I?
                         allowfullscreen=1&rel=0"
                 ></iframe>
             </div>
@@ -167,7 +174,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
             {% for partner in partners %}
 
                 {% if first == true  %}
-                    <img src="{{ asset('/images/news/blanco.png') }}" /> <img src="{{ asset('/images/news/blanco.png') }}" />
+                    <img src="{{ asset('/images/news/blanco.png') }}" alt="blank_image" /> <img src="{{ asset('/images/news/blanco.png') }}" alt="blank_image2" />
                     <img class="first" src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
                     {% set first= false %}
                 {%  else %}
@@ -191,5 +198,4 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
             link.click();
         }
     </script>
-
 {% endblock %}

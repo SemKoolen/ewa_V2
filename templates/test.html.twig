@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    {% block head %}
+    {{ encore_entry_link_tags('app2') }}
+    <script src="https://kit.fontawesome.com/993d3e9dd0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% endblock %}
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar navbar-expand-lg fixed-top " id="mainNav">
+            <div class="container h-100 justify-content-between">
+                <a class="navbar-brand p-0 m-0 col-xl-5  col-lg-4 col-md-8 col-sm-9 col-10" href="">
+                    <img class="" src="{{ asset('images/EWAHaaglanden_logo.png') }}" alt="EWA haaglanden"/>
+                </a>
+                <button class="navbar-toggler navbar-toggler-right col-lg-8 col-md-4 col-sm-3 col-2 text-right
+                    collapsed text-uppercase text-white font-weight-bold p-0" 
+                    type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <a href="#" class="btn btn-info btn-lg">
+                        <i class="fas fa-list"></i> 
+                    </a>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {{ render(controller(
+                        'App\\Controller\\AdminController::makeNavBar',
+                        {'current': app.request.attributes.get('_route') } )) }}
+                    {% else %}
+                    {{ render(controller(
+                        'App\\Controller\\BezoekerController::makeNavBar', 
+                        {'current': app.request.attributes.get('_route') } )) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="content">
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <noscript>
+            <strong>We're sorry but Ewa Haaglanden doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        </noscript>
+
+
+        <div class="copyright py-3 text-white text-center" style>
+            <div class="container" style="text-align: center;">
+                &copy; 2020. Gemaakt op basis van ontwerp en prototype van Michael Schaap, student van het
+                <a href="https://www.rocmondriaan.nl"
+                        target="_blank"
+                        rel="noopener"
+                >ROC Mondriaan </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% block script  %}
+{{ encore_entry_script_tags('app2') }}
+{{ encore_entry_script_tags('cookieconsent') }}
+<script>
+    // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+    window.onresize = function() {resizeFunction()};
+    function resizeFunction() {
+        if ($('#navbarResponsive').hasClass('show')) {
+            $('#navbarResponsive').removeClass('show')
+        } 
+    }
+</script>
+{% endblock %}
+
+</html>
+    

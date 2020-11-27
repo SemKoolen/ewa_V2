@@ -8,6 +8,8 @@
 
 body, html {
     height: 100%;
+    width: 100%;
+    max-width: 100vw;
 }
 
 .wrapper {
@@ -253,9 +255,7 @@ section.nieuwsOverzicht{
     font-size: inherit;
     line-height: 1.5;
 }
-#navbarTogglerDemo02 ul{
-    margin-left:40%;
-}
+
 .big_form{
     box-shadow: none;
     background-color:white;
