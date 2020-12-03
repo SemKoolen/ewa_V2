@@ -11,7 +11,7 @@
 					document.body.innerHTML += '\
 					<div class="cookieconsent" style="position:fixed;padding:20px;left:0;bottom:0;background-color:#000;color:#FFF;text-align:center;width:100%;z-index:99999;">\
 						Deze site maakt gebruik van cookies. Bij het verder gebruiken van de site, gaat u akkoord met het gebruik hiervan. \
-						<a id="consentButton" href="" style="color:#CCCCCC;">Begrepen</a> / <a href="/index.php/Informatie/Cookieverklaring" style="color: blue;">Meer leren</a>\
+						<a id="consentButton" href="" style="color:#CCCCCC;">Begrepen</a> / <a href="/index.php/Info/Cookieverklaring" style="color: blue;">Meer leren</a>\
 					</div>\
 					';
 					document.querySelector('#consentButton').onclick = function(e) {

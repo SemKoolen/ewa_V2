@@ -9,6 +9,10 @@ section.headIntro .container {
     align-items: center;
 }
 
+.content {
+    margin-bottom: 0px;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin-bottom: .5rem;
     font-weight: 500;
@@ -47,20 +51,12 @@ section.headIntro .container {
     }
 }
 
-
 section:not(.headIntro){
     padding-bottom: 30px;
 }
 
 section.video {
     background-color: yellow;
-}
-
-.video h2 {
-    color: black;
-    font-size: 58px;
-    font-weight: 700;
-    padding-bottom: 30px;
 }
 
 .nieuws {
@@ -76,15 +72,10 @@ section.video {
     margin-bottom: 30px;
 }
 
-section.nieuwsOverzicht {
-    background-color: rgb(255, 179, 0);
-    padding-top: 8%;
-    margin-bottom: 5%;
-}
-
-.card-deck {
-    height: 240px;
+.deck-cards .card {
+    height: 200px;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 .card-img-overlay {
@@ -92,6 +83,85 @@ section.nieuwsOverzicht {
     width: 100%;
     background-color: #000;
     opacity: 0.6;
+}
+
+.card-img-overlay:hover {
+    background-color: #000;
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.card-overlay-text {
+    position: absolute;
+    max-height: 100%;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    padding: 1.25rem;
+}
+
+section.contact h2{
+    font-size: 30px;
+}
+
+.contact input, .contact label, .login label, .login input {
+    margin-bottom: 2%;
+    margin-top: 2%;
+    text-align: left;
+}
+
+.big_form {
+    box-shadow: none;
+    background-color: white;
+    display: flex;
+    -moz-box-align: center;
+    align-items: center;
+    width: 100%;
+    max-width: 668px;
+    position: relative;
+    height: 48px;
+    border: none;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-bottom: 2px solid #666;
+    border-image: none 100%/1/0 stretch;
+    border-radius: 0;
+    font-family: Exo BNNVARA,Verdana,sans-serif;
+    color: #101010;
+    font-size: 16px;
+    text-indent: 17px;
+    padding: 3px;
+}
+
+textarea.big_form  {
+    background-color: rgb(219, 219, 219);
+    border: 1px solid rgb(124, 124, 124);
+    border-bottom: 2px solid #666;
+    height: 200px;
+    text-indent: 5px;
+    margin-top: 2%;
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+}
+
+.contact button {
+    align-self: center;
+    background: transparent;
+    padding: .5rem 1rem;
+    margin-bottom: 1.2em;
+    transition: all .5s ease;
+    color: #41403e;
+    letter-spacing: 1px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border-color: #41403e;
+}
+
+section.nieuwsOverzicht {
+    margin-bottom: 0px;
 }
 
 .vich-image img{
@@ -103,8 +173,8 @@ section.nieuwsOverzicht {
 .fotocontainer {
     width: 100%;
     overflow: hidden;
-    margin: 10px auto;
     background: white;
+    margin: 20px 0;
 }
 
 .photobanner, .photobanner2 {
@@ -117,9 +187,9 @@ section.nieuwsOverzicht {
 
 .photobanner img, .photobanner2 img {
     margin-bottom: 10px;
-    margin-right: 5px;
-    width: 150px;
-    height:50px;
+    margin-right: 10px;
+    max-width: 150px;
+    max-height: 50px;
 }
 
 .photobanner img  {

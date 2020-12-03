@@ -22,7 +22,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
-
 class BezoekerController extends AbstractController
 {
     private EntityManagerInterface $em;
@@ -40,14 +39,39 @@ class BezoekerController extends AbstractController
     {
         $nieuwsberichten = $this->em->getRepository(Post::class)->findLatest();
         $partners=$this->em->getRepository(Partner::class)->findAll();
+
         $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
+        $form = $this->createForm(ContactType::class, $contact, [
+            'action' => $this->generateUrl('submitContactForm'),
+            'method' => 'GET',
+        ]);
+        
+        $response =  $this->render('bezoeker/home.html.twig', [
+            'form' => $form->createView(),
+            'nieuwsberichten' => $nieuwsberichten,
+            'partners'=>$partners
+        ]);
+
+        return $response;
+
+    }
+
+    /**
+     * @Route("/submitContactForm", name="submitContactForm")
+     */
+    function submitContactForm(Request $request, MailerInterface $mailer)
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact, [
+            'action' => $this->generateUrl('submitContactForm'),
+            'method' => 'GET',
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-
-// create new contact
+            // create new contact
             $contact = $form->getData();
             $name = $form->get('name')->getData();
             if (empty($name)) {
@@ -68,8 +92,7 @@ class BezoekerController extends AbstractController
             $contact->setMessage($message);
             $contact->setSubscribed($subscribed);
 // make email
-            $html = "<p>Beste mevrouw A. Waarts, </p>
-                     <p>U heeft een bericht ontvangen via de website van EWA Haaglanden van $emailAddress.  </p>
+            $html = "<p>Er is een bericht van $emailAddress.</p>
                      <p>$message</p>";
             
             if ($subscribed == true) {
@@ -96,15 +119,20 @@ class BezoekerController extends AbstractController
             $this->addFlash('success',"Hartelijk dank, uw bericht is verzonden.");
             $this->getDoctrine()->getManager()->persist($contact);
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('homeCreate');
         }
-        return $this->render('bezoeker/home.html.twig', [
-            'form' => $form->createView(),
-            'nieuwsberichten' => $nieuwsberichten,
-            'partners'=>$partners
-        ]);
-
+        return $this->redirectToRoute('homepage');
     }
+    /**
+     * @Route("/Info/{name}", name="showLink")
+     */
+    function showLink(Request $request, $name)
+    {
+        $informatie = $this->em->getRepository(Document::class)->findOneBy(['name' => $name]);
+        return $this->render('bezoeker/showInformatieDetails.html.twig', [
+            'informatie' => $informatie,
+        ]);
+    }
+
     /**
      * @Route("/nieuws/{id}", name="showNieuwsdetail")
      */

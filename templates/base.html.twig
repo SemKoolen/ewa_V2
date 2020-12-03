@@ -16,24 +16,9 @@
 
     <!--navigatiebalk toggle effect bootstrap-->
     <header class="header bg-light fixed-top">
-        <div class="container">
-            <div class="navbar navbar-expand-md navbar-light w-100 p-0">
-                <a class="navbar-brand h-100 mw-75" href="#"> 
-                    <img class="w-auto h-auto mw-100 mh-100" src="{{ asset('images/EWAHaaglanden_logo.png') }}" alt="EWA haaglanden">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-    
-                
-            </div>
-        </div>
-    </header>
-            
-    
-    {# <nav class="navbar navbar-expand-md navbar-light fixed-top">
+        <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <div class="container h-100 justify-content-between">
-            <a class="navbar-brand h-100 mr-auto" href="#"> 
+            <a class="navbar-brand h-100 mr-auto" href="{{ path('homepage') }}"> 
                 <img class="h-100" src="{{ asset('images/EWAHaaglanden_logo.png') }}" alt="EWA haaglanden">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +28,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0 bg-light text-right">
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ path('homeCreate') }}">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ path('homepage') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('showNieuws') }}">Nieuws</a>
@@ -63,7 +48,11 @@
                 </ul>
             </div>
         </div>
-    </nav> #}
+    </nav>
+    </header>
+            
+    
+    
     <!--    einde navigatiebalk-->
 
     <div class="content">
@@ -81,7 +70,7 @@
 
     <footer class="footer">
         <div class="footer-copyright text-center" style>
-            <div class="container" style="text-align: center;">
+            <div class="container text-center text-white">
                 &copy; 2020. Gemaakt op basis van ontwerp en prototype van Michael Schaap, student van het
                 <a href="https://www.rocmondriaan.nl"
                         target="_blank"

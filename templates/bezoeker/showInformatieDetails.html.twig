@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'test.html.twig' %}
 
 {% block title %}{{ informatie.name }} - Informatie | EWA Haaglanden{% endblock %}
 
 {% block description %}
-Samenvatting informatie pagina.
+Overzicht informatie artikel.
 {% endblock %}
 
 {% block content %}
@@ -27,7 +27,7 @@ Samenvatting informatie pagina.
                 <div class="card">
                     <div class="card-body">
                         <h3>{{ informatie.name }}</h3></br>
-                        <a href="{{ asset('images/doc/' ~ informatie.file ) }}" target="_blank"><button style="padding: 5px 10px; margin-right: 15px" ><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;</i> Download</button>{{ informatie.file }}</a></br>
+                        <a href="{{ asset('images/doc/' ~ informatie.file ) }}" target="_blank"><button style="padding: 5px 10px; margin-right: 15px" ><i class="far fa-file-pdf">&nbsp; </i> Download</button>{{ informatie.file }}</a></br>
                         </br>
                         <p>{{ informatie.created|date('d-m-Y') }}</p>
                         <p >{{ informatie.description|raw}}</p>

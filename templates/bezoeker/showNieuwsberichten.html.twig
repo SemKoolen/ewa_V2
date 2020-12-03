@@ -1,9 +1,10 @@
-{%  extends 'base.html.twig' %}
+{%  extends 'test.html.twig' %}
 
 {% block title %}Nieuwsberichten | EWA Haaglanden{% endblock %}
 
 {% block description %}
-Samenvatting nieuwsberichten pagina.
+Alles over EWA Haaglanden. Wat gebeurt er bij de entreeopleiding, 
+binnen de bedrijven of in de begeleiding door de gemeente?
 {% endblock %}
 
 {% block content %}
@@ -24,7 +25,7 @@ Samenvatting nieuwsberichten pagina.
             {% for nieuwsbericht in news %}
 
                 <!--    start  nieuwsberichten -->
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
                    <div class="container">
                         <div class="card">
                             <div class="cardimg">

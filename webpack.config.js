@@ -1,5 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
-
+// const CompressionPlugin = require("compression-webpack-plugin");
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -56,6 +56,16 @@ Encore
         config.corejs = 3;
     })
 
+    // .addPlugin(new CompressionPlugin())
+    // .addPlugin(new OptimizeCssAssetsPlugin({
+    //     assetNameRegExp: /\.optimize\.css$/g,
+    //     cssProcessor: require('cssnano'),
+    //     cssProcessorPluginOptions: {
+    //         preset: ['default', { discardComments: { removeAll: true } }],
+    //     },
+    //     canPrint: true
+    // }))
+
     // enables Sass/SCSS support
     //.enableSassLoader()
 
@@ -72,6 +82,7 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+    
 ;
 
 module.exports = Encore.getWebpackConfig();

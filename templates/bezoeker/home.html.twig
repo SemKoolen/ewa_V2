@@ -3,11 +3,9 @@
 {% block title %}EWA Haaglanden{% endblock %}
 
 {% block description %}
-Ewa Haaglanden is een samenwerkingsverband tussen bedrijven, gemeenten, 
-ROC Mondriaan en maatschappelijke partijen in de regio Haaglanden. 
-Wij leiden jonge mensen op naar een diploma en een fijne werkplek. 
-Wij leiden werknemers verder op. 
-En we brengen kandidaten met relevante scholing dichter bij een baan en participatie.
+EWA Haaglanden is een publiek-private samenwerking tussen de entreeopleiding van ROC Mondriaan, 
+bedrijven en gemeenten in de regio Haaglanden. Onderwijs en werk. 
+We brengen jongeren naar een diploma en een fijne werkplek.
 {% endblock %}
 
 {% block head %}
@@ -46,7 +44,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
             <h2 class="title" >Ewa Haaglanden in 3 minuten</h2>
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe
-                        class="embed-responsive-item"
+                        class="embed-responsive-item" title="EWA Haaglanden in 3 minuten"
                         src="https://www.youtube.com/embed/bsPkTBn0s7I?
                         allowfullscreen=1&rel=0"
                 ></iframe>
@@ -60,22 +58,24 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
 <!--    start drie nieuwsberichten -->
 <section class="nieuws">
     <div class="container text-center" >
-        <div class="row justify-center-md-center">
+        <div class="row justify-content-center">
             <div class="col-12 ">
-                <div class="container">
+                <div class="container-fluid">
                     <h2>Laatste berichten</h2>
-                    <div class="row justify-center-md-center">
-                        <div class="card-deck">
-                            {% for nieuws in nieuwsberichten %}
-                            <div class="card col-sm-12 col-lg-4 col-md-6 ">
+                    <div class="row justify-content-center deck-cards">
+                        {% for nieuws in nieuwsberichten %}
+                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                            <div class="card justify-content-center">
                                 <img class="card-img-top" src="{{ asset('images/news/' ~ nieuws.image) }}" alt="Card image cap">
                                 <div class="card-img-overlay" onclick="showNews('{{ nieuws.id }}')">
-                                    <h5 class="card-title">{{nieuws.title}}</h5>
-                                    <p class="card-text"><small class="text-muted"><a id="newsLink-{{ nieuws.id}}" href="{{ path('showNieuwsdetail', {id: nieuws.id}) }}">Lees meer...</a></small></p>
+                                    <div class="card-overlay-text">
+                                        <h5 class="card-title">{{nieuws.title}}</h5>
+                                        <p class="card-text"><small class="text-muted"><a id="newsLink-{{ nieuws.id}}" href="{{ path('showNieuwsdetail', {id: nieuws.id}) }}">Lees meer...</a></small></p>
+                                    </div>
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
             {{ form_start(form) }}
             <div class="my-custom-class-for-errors">
                 <div class="row">
-                    <div class="col-lg-12 ml-auto mr-auto col-md-12">
+                    <div class="col-xl-12 col-lg-12 ml-auto mr-auto col-md-12 col-sm-12">
                         {{ form_errors(form) }}
                     </div>
                         <div class="col-lg-12 ml-auto mr-auto col-md-12">
@@ -133,18 +133,12 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
                         </div>
                     </div>
                     </div>
-                    <div class="col-lg-12 ml-auto mr-auto col-md-12" style="text-align: center">
+                    <div class="col-lg-12 ml-auto mr-auto col-md-12 my-3" style="text-align: center">
 
                         {{ form_row(form.subscribed) }}
                         <div>
                             <label>Ik ga akkoord met de </label>
-                            <div id="privacyVerklaringPopUp" style="z-index: 9999">
-                            <div class="popuptext">
-                                De door u ingevulde gegevens worden alleen bij ons intern gebruikt,
-                                en niet aan derden partijen verstreken.
-                            </div>
-                            <span id="PrivacyVerklaringLink" class="fakeLink" data-toggle="popover">Privacyverklaring</span>
-                        </div>
+                            <a href="Info/Privacyverklaring" target="_blank">Privacyverklaring</a>
                             <input type="checkbox" required>  
                         </div>
                         
@@ -152,7 +146,7 @@ En we brengen kandidaten met relevante scholing dichter bij een baan en particip
                 </div>
             </div>
         </div>
-        <div style="margin-bottom:2%; margin-top:2%;text-align: center">
+        <div class="save" style="margin-bottom:2%; margin-top:2%;text-align: center ">
                         {{ form_row(form.save) }}
                         {{ form_widget(form.save, {'attr': {'class': 'linedthin'}}) }}
         </div>

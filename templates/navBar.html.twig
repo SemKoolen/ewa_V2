@@ -3,12 +3,12 @@
 {% for name, route in routes %}
 
     {% if route == currentRoute %}
-        <li class="current nav-item mx-0 mx-lg-1">
+        <li class="current nav-item">
     {% else %}
-        <li class="nav-item mx-0 mx-lg-1">
+        <li class="nav-item">
     {% endif %}
 
-        <a class="nav-link py-3 px-0 px-lg-2 rounded" href="{{ path(route) }}">{{ name }}</a>
+        <a class="nav-link rounded" href="{{ path(route) }}">{{ name }}</a>
     </li>
 {% endfor %}
 </ul>
