@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * @Route("/admin/post")
+ * @Route("/admin/posts")
  */
 class PostController extends AbstractController
 {
@@ -74,15 +74,13 @@ class PostController extends AbstractController
     /**
  * @Route("/{id}/delete", name="post_delete", methods={"GET"})
  */
-    public function delete(Request $request, $id): Response
+    public function delete(Request $request, Post $post): Response
     {
-        $post=$this->getDoctrine()->getRepository(Post::class)->find($id);
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($post) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($post);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('beheerNieuws');
     }
     /**

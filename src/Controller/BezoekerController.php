@@ -222,11 +222,11 @@ class BezoekerController extends AbstractController
     public function findAllNbAction()
     {
         $news = $this->em->getRepository(Post::class)->findBy([], ['id' => 'DESC']);
-        foreach($news as $nw)
-        {
-            $nw->setContent(substr($nw->getContent(),0,200));
-            $nw->setContent($nw->getContent() . "...");
-        }
+        // foreach($news as $nw)
+        // {
+        //     $nw->setContent(substr($nw->getContent());
+        //     $nw->setContent($nw->getContent() . "...");
+        // }
 
         return $this->render('bezoeker/showNieuwsberichten.html.twig', [
             'news' => $news,

@@ -1,4 +1,4 @@
-{%  extends 'test.html.twig' %}
+{%  extends 'base.html.twig' %}
 
 {% block title %}Partners | EWA Haaglanden{% endblock %}
 
@@ -21,15 +21,15 @@ De partners van de publiek-private samenwerking EWA Haaglanden – jongeren naar
 <div class="container" >
     <section class="partners">
         <div class="row justify-center-md-center">
-            {% for partner in partners %}
-                    <!--    start  partners -->
+            <!--    start  partners -->
+            {% for partner in partners %}                
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
                    <div class="container">
                         <div class="card">
                             <div class="card-img"> 
                                 <img class="card-img-top" src="../{{  vich_uploader_asset(partner, 'imageFile') }}" alt="{{ partner.name }}" />
                             </div>
-                            <div class="card-body" >
+                            <div class="card-body " >
                                 <h5>{{ partner.name }}</h5>
                                 {% set website = partner.website %}
                                 {% if website|slice(0, 8) == "https://" %}
@@ -39,12 +39,12 @@ De partners van de publiek-private samenwerking EWA Haaglanden – jongeren naar
                                     {% set website = website|slice(4) %}
                                 {% endif %}
                                 <a href="https://www.{{ website }}" target='_blank'><button >Website</button></a>
-                            </div>
+                            </div>   
                         </div>
                     </div>
                 </div>
-            <!--    einde  partners -->
             {% endfor %}
+            <!--    einde  partners -->
         </div>
     </section>
 </div>

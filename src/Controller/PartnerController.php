@@ -88,7 +88,7 @@ class PartnerController extends AbstractController
      */
     public function delete(Request $request, Partner $partner): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$partner->getId(), $request->request->get('_token'))) {
+        if ($partner) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($partner);
             $entityManager->flush();

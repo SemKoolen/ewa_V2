@@ -162,7 +162,7 @@ class DocumentController extends AbstractController
      */
     public function delete(Request $request, Document $document): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+        if ($document) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();

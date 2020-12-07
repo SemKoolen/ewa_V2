@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminbase.html.twig' %}
 
 {% block title %}Nieuwsoverzicht{% endblock %}
 
@@ -32,8 +32,8 @@
 
         <a href="{{ path('post_new') }}"><button class="beheer">Toevoegen</button></a>
     </div></section>
-    <div class="container " >
-    <table class="table table-striped">
+    <div class="container">
+    <table class="table table-striped indexTable">
         <thead>
             <tr>
                 <th>Titel</th>
@@ -46,14 +46,21 @@
         <tbody>
         {% for post in posts|sort((a, b) => b.created <=> a.created) %}
             <tr>
-                 <td><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></td>
-                <td>{{ post.content|raw }}</td>
-                <td><div class="beheer"><img src="{{  asset(vich_uploader_asset(post, 'imageFile')) }}" alt="{{ post.title }}" /></div></td>
-
+                <td><div><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></div></td>
+                <td><div>{{ post.content|raw }}</div></td>
                 <td>
-                    <a href="{{ path('post_edit', {'id': post.id}) }}"><i class="fa fa-pencil fa-fw" aria-hidden="true">&nbsp;edit</i></a><br />
-                    <a href="{{ path('post_delete', {'id': post.id}) }}" onclick="return confirm('Weet u zeker dat u dit item wilt verwijderen?');"><i class="fa fa-trash " aria-hidden="true">&nbsp;delete</i></a>
-
+                    <div class="beheer">
+                        {% if post.image != null %}
+                            <img src="{{  asset(vich_uploader_asset(post, 'imageFile')) }}" alt="{{ post.title }}" />
+                        {% endif %}
+                    </div>
+                </td>
+                <td style="min-width: 100px">
+                    <div>
+                        <a href="{{ path('post_edit', {'id': post.id}) }}"><i class="fas fa-pencil-alt"></i>&nbsp;edit</a><br />
+                        <a href="{{ path('post_delete', {'id': post.id}) }}" onclick="return confirm('Weet u zeker dat u dit item wilt verwijderen?');"><i class="fas fa-trash"></i>&nbsp;delete</a><br/>
+                        <a href="{{ path('post_show', {'id': post.id}) }}"><i class="fas fa-list-ul"></i>&nbsp;details</a>
+                    </div>
                 </td>
             </tr>
         {% else %}

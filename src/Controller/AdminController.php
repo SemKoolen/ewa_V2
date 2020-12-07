@@ -41,9 +41,8 @@ class AdminController extends AbstractController
     {
         $news = $postRepository->findBy([], ['id' => 'DESC']);
         foreach($news as $nw)
-        {
-            $nw->setContent(substr($nw->getContent(),0,200));
-            $nw->setContent($nw->getContent() . "...");
+        {   
+            $nw->setContent($nw->getContent());
         }
         return $this->render('admin/post/index.html.twig', [
             'posts' => $news,

@@ -1,4 +1,4 @@
-{% extends 'test.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{ nieuwsbericht.title }} - nieuwsbericht | EWA Haaglanden{% endblock %}
 
@@ -8,7 +8,7 @@ Samenvatting over een gepubliceerd nieuwsbericht.
 
 {% block content %}
 <section class="nieuwsOverzicht">
-    
+
 </section>
 <div class="container info" >
     <div class="row justify-center-md-center">
@@ -21,7 +21,7 @@ Samenvatting over een gepubliceerd nieuwsbericht.
                         <img class="card-img-top" src="{{  asset(vich_uploader_asset(nieuwsbericht, 'imageFile')) }}" alt="{{ nieuwsbericht.title }}" />
                     </div>
                     <div class="card-body">
-                        <h5>{{ nieuwsbericht.title }}</h5>
+                        <h4>{{ nieuwsbericht.title }}</h4>
                         <p>{{ nieuwsbericht.created|date('d-m-Y') }}</p>
                         <p >{{nieuwsbericht.content|raw}}</p>
                     </div>

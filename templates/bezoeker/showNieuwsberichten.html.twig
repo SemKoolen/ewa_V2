@@ -1,4 +1,4 @@
-{%  extends 'test.html.twig' %}
+{%  extends 'base.html.twig' %}
 
 {% block title %}Nieuwsberichten | EWA Haaglanden{% endblock %}
 
@@ -28,11 +28,12 @@ binnen de bedrijven of in de begeleiding door de gemeente?
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
                    <div class="container">
                         <div class="card">
-                            <div class="cardimg">
-                        <img class="card-img-top" src="../images/news/{{ nieuwsbericht.image }}" alt="Card image cap" /></div>
+                            <div class="cardimg" style="min-height: 220px">
+                                <img class="card-img-top" src="../images/news/{{ nieuwsbericht.image }}" alt="Card image cap" />
+                            </div>
                             <div class="card-body">
                                 <h5>{{ nieuwsbericht.title }}</h5>
-                        <p >{{nieuwsbericht.content|raw}}</p>
+                                {{nieuwsbericht.content|raw}}
                             </div>
                             <a href="{{ path('showNieuwsdetail', {id:nieuwsbericht.id}) }}"><button >Lees meer</button></a>
                         </div>

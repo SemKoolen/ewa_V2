@@ -1,4 +1,4 @@
-{%  extends 'test.html.twig' %}
+{%  extends 'base.html.twig' %}
 
 {% block title %}EWA Haaglanden{% endblock %}
 
@@ -168,7 +168,7 @@ We brengen jongeren naar een diploma en een fijne werkplek.
             {% for partner in partners %}
 
                 {% if first == true  %}
-                    <img src="{{ asset('/images/news/blanco.png') }}" alt="blank_image" /> <img src="{{ asset('/images/news/blanco.png') }}" alt="blank_image2" />
+                    <img src="{{ asset('images/news/blanco.png') }}" alt="blank_image" /> <img src="{{ asset('images/news/blanco.png') }}" alt="blank_image2" />
                     <img class="first" src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
                     {% set first= false %}
                 {%  else %}

@@ -6,11 +6,9 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import '../css/base/base.css';
-import '../css/base/nav.css';
-// import '../css/base/gradient_animation.css';
-// import '../slick/slick.css';
-// import '../slick/slick-theme.css';
+import '../css/admin/app.css';
+import '../css/admin/nav.css';
+
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 

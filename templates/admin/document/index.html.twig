@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminbase.html.twig' %}
 
 {% block title %}Informatie overzicht{% endblock %}
 
@@ -34,7 +34,7 @@
         </div>
     </section>
     <div class="fluid-container" >
-        <table class="table table-striped m-auto" style="width: 90%">
+        <table class="table table-striped m-auto indexTable" style="width: 90%">
         <thead>
             <tr class="d-flex">
                 <th class="col-2">Naam</th>
@@ -48,14 +48,17 @@
         <tbody>
         {% for document in documents|sort((a, b) => b.created <=> a.created) %}
             <tr class="d-flex">
-                <td class="col-2"><a href="{{ path('document_show', {'id': document.id}) }}">{{ document.name }}</a></td>
-                <td class="col-3" style="word-wrap: break-word">{{ document.description|raw }}</td>
-                <td class="col-2">{{ document.file }}</td>
-                <td class="col-2">{{ document.created ? document.created|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="col-2">{{ document.updated ? document.updated|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="col-1">
-                    <a href="{{ path('document_edit', {'id': document.id}) }}"><i class="fa fa-pencil fa-fw" aria-hidden="true">&nbsp;edit</i></a><br />
-                    <a href="{{ path('document_delete', {'id': document.id}) }}" onclick="return confirm('Weet u zeker dat u dit item wilt verwijderen?');"><i class="fa fa-trash " aria-hidden="true">&nbsp;delete</i></a>
+                <td class="col-2"><div><a href="{{ path('document_show', {'id': document.id}) }}">{{ document.name }}</a></div></td>
+                <td class="col-3" style="word-wrap: break-word"><div>{{ document.description|raw }}</div></td>
+                <td class="col-2"><div>{{ document.file }}</td>
+                <td class="col-2"><div>{{ document.created ? document.created|date('Y-m-d H:i:s') : '' }}</div></td>
+                <td class="col-2"><div>{{ document.updated ? document.updated|date('Y-m-d H:i:s') : '' }}</div></td>
+                <td class="col-1" style="min-width: 100px">
+                    <div>
+                        <a href="{{ path('document_edit', {'id': document.id}) }}"><i class="fas fa-pencil-alt"></i>&nbsp;edit</a><br />
+                        <a href="{{ path('document_delete', {'id': document.id}) }}" onclick="return confirm('Weet u zeker dat u dit item wilt verwijderen?');"><i class="fas fa-trash"></i>&nbsp;delete</a><br/>
+                        <a href="{{ path('document_show', {'id': document.id}) }}"><i class="fas fa-list-ul"></i>&nbsp;details</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
