@@ -5,7 +5,7 @@ header {
     right: 0;
     height: 70px;
     width: 100%;
-    opacity: 90%;
+    opacity: 0.9;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, .45);
 }
 

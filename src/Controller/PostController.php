@@ -54,9 +54,13 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {   
-        $post->setImageFile(
-            new File($post->getImageFile())
-        );
+        $file = $post->getImageFile();
+        if ($file) {
+            $post->setImageFile(
+                new File($post->getImageFile())
+            );
+        }
+        
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
