@@ -172,7 +172,11 @@ We brengen jongeren naar een diploma en een fijne werkplek.
                     <img class="first" src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
                     {% set first= false %}
                 {%  else %}
-                    <img src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
+                    {% if partner.imageFile %}
+                        <img src="{{  asset(vich_uploader_asset(partner, 'imageFile')) }}" alt="{{ partner.name }}" />
+                    {% else %}
+                        <img src="{{ asset('images/news/blanco.png') }}" alt="{{ partner.name }}" />
+                    {% endif %}
                 {%  endif %}
 
             {% endfor %}

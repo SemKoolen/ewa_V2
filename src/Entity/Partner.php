@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Exception;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -45,60 +46,12 @@ class Partner
     private $image;
 
     /**
-     * @return string|null
-     */
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param string|null $image
-     */
-    public function setImage(?string $image): void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param mixed $imageFile
-     */
-    public function setImageFile($imageFile): void
-    {
-        $this->imageFile = $imageFile;
-    }
-    /**
-     *
+     * @Assert\Image
      * @Vich\UploadableField(mapping="imageFile", fileNameProperty="image")
      *
      *
      */
     protected $imageFile;
-
-    /**
-     * @return mixed
-     */
-    public function getPartnerImage()
-    {
-        return $this->partnerImage;
-    }
-
-    /**
-     * @param mixed $partnerImage
-     */
-    public function setPartnerImage($partnerImage): void
-    {
-        $this->partnerImage = $partnerImage;
-    }
-
 
     /**
      * @ORM\Column(name="created", type="datetime")
@@ -113,6 +66,24 @@ class Partner
      * @var DateTime|null
      */
     private $updated;
+
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
 
     /**
      * @ORM\PrePersist
@@ -161,16 +132,12 @@ class Partner
         return $this;
     }
 
-    public function getImg()
+    public function setImage($image): void
     {
-        return $this->img;
+        $this->image = $image;
     }
-
-    public function setImg($img)
-    {
-        $this->img = $img;
-
-        return $this;
+    public function getImage(): ?string {
+        return $this->image;
     }
 
     public function getCreated(): ?DateTime

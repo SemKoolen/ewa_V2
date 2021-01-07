@@ -30,6 +30,7 @@ class PostController extends AbstractController
 
 //        if ($form->isSubmitted() && $form->isValid()) {
         if ($form->isSubmitted() ) {
+            
             $title = $form->get('title')->getData();
             if (empty($title)) {
                 throw new BadRequestHttpException('title cannot be empty');
@@ -54,18 +55,11 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {   
-        $file = $post->getImageFile();
-        if ($file) {
-            $post->setImageFile(
-                new File($post->getImageFile())
-            );
-        }
-        
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
-        {
+        {   
             $this->getDoctrine()->getManager()->persist($post);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('beheerNieuws');

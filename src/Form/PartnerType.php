@@ -16,7 +16,9 @@ class PartnerType extends AbstractType
             ->add('name')
             ->add('website')
             ->add('imageFile', VichImageType::class, array(
-        'required'      => false))
+                    'required'      => false,
+                    'allow_delete' => true,
+            ))
         ;
     }
 

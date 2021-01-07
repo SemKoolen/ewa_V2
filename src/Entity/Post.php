@@ -58,29 +58,12 @@ class Post
      */
     private $image;
     /**
-     *
+     * @Assert\Image
      * @Vich\UploadableField(mapping="imageFile", fileNameProperty="image")
      *
      *
      */
     protected $imageFile;
-    /**
-     * @return mixed
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param mixed $imageFile
-     */
-    public function setImageFile($imageFile): void
-    {
-        $this->imageFile = $imageFile;
-    }
-
-
 
     /**
      * @ORM\Column(name="updated", type="datetime", nullable=true)
@@ -90,28 +73,30 @@ class Post
     private $updated;
 
     /**
+     * @ORM\Column(name="created", type="datetime")
+     *
+     * @var DateTime
+     */
+    private $created;
+
+
+    /**
      * @param UploadedFile $file
      */
-    public function setFile(File $file = null)
+    public function setImageFile(File $imageFile = null)
     {
-        $this->file = $file;
+        $this->imageFile = $imageFile;
         $this->updated = new \DateTime();
     }
 
     /**
      * @return UploadedFile
      */
-    public function getFile()
+    public function getImageFile()
     {
-        return $this->file;
+        return $this->imageFile;
     }
 
-    /**
-     * @ORM\Column(name="created", type="datetime")
-     *
-     * @var DateTime
-     */
-    private $created;
 
     /**
      * @param DateTime $created

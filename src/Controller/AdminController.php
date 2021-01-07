@@ -53,7 +53,9 @@ class AdminController extends AbstractController
      * @Route("/Partners", name="beheerPartners", methods={"GET"})
      */
     public function beheerPartnersAction(PartnerRepository $partnerRepository): Response
-    {
+    {   
+        $partners = $partnerRepository->findAll();
+        return new Response(var_dump($partners));
         return $this->render('admin/partner/index.html.twig', [
             'partners' => $partnerRepository->findAll(),
         ]);

@@ -36,27 +36,15 @@ section.headIntro .container {
     max-height: 100%;
     display: block;
     margin: auto;
-    animation: zoominoutsinglefeatured 4s infinite ;
 }
 
-@keyframes zoominoutsinglefeatured {
-    0% {
-        transform: scale(0.8,0.8);
-    }
-    50% {
-        transform: scale(1,1);
-    }
-    100% {
-        transform: scale(0.8,0.8);
-    }
-}
 
 section:not(.headIntro){
     padding-bottom: 30px;
 }
 
 section.video {
-    background-color: yellow;
+    background-color: rgb(255, 179, 0);
 }
 
 .nieuws {
