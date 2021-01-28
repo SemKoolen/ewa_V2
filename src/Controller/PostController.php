@@ -13,12 +13,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 
+
 /**
  * @Route("/admin/posts")
  */
 class PostController extends AbstractController
 {
-
     /**
      * @Route("/new", name="post_new", methods={"GET","POST"})
      */
@@ -28,9 +28,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
         if ($form->isSubmitted() ) {
-            
             $title = $form->get('title')->getData();
             if (empty($title)) {
                 throw new BadRequestHttpException('title cannot be empty');
@@ -40,10 +38,15 @@ class PostController extends AbstractController
             if (empty($content)) {
                 throw new BadRequestHttpException('content cannot be empty');
             }
+
             $this->getDoctrine()->getManager()->persist($post);
             $this->getDoctrine()->getManager()->flush();
+
+            
             return $this->redirectToRoute('beheerNieuws');
         }
+
+
         return $this->render('admin/post/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
@@ -58,20 +61,24 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {   
+        if ($form->isSubmitted() && $form->isValid()) {   
             $this->getDoctrine()->getManager()->persist($post);
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('beheerNieuws');
         }
+        
+
         return $this->render('admin/post/edit.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
         ]);
     }
+
+
     /**
- * @Route("/{id}/delete", name="post_delete", methods={"GET"})
- */
+     * @Route("/{id}/delete", name="post_delete", methods={"GET"})
+     */
     public function delete(Request $request, Post $post): Response
     {
         if ($post) {
@@ -79,8 +86,12 @@ class PostController extends AbstractController
             $entityManager->remove($post);
             $entityManager->flush();
         }
+
+
         return $this->redirectToRoute('beheerNieuws');
     }
+
+
     /**
      * @Route("/{id}", name="post_show", methods={"GET"})
      */

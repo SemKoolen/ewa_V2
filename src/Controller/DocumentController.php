@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("admin/documents")
  */
@@ -26,10 +27,12 @@ class DocumentController extends AbstractController
             ->getRepository(Document::class)
             ->findAll();
 
+
         return $this->render('admin/document/index.html.twig', [
             'documents' => $documents,
         ]);
     }
+
 
     /**
      * @Route("/new", name="document_new", methods={"GET","POST"})
@@ -51,41 +54,44 @@ class DocumentController extends AbstractController
                 throw new BadRequestHttpException('description cannot be empty');
             }
 
-        $file = $form->get('file')->getData();
+            $file = $form->get('file')->getData();
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_BASENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
-        // this condition is needed because the 'brochure' field is not required
-        // so the PDF file must be processed only when a file is uploaded
-        if ($file) {
-            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_BASENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('files_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $file->move(
-                    $this->getParameter('files_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $document->setFile($newFilename);
             }
 
-            // updates the 'brochureFilename' property to store the PDF file name
-            // instead of its contents
-            $document->setFile($newFilename);
-        }
-        $this->getDoctrine()->getManager()->persist($document);
-        $this->getDoctrine()->getManager()->flush();
+            $this->getDoctrine()->getManager()->persist($document);
+            $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirectToRoute('document_index');
+
+            return $this->redirectToRoute('document_index');
         }
+
 
         return $this->render('admin/document/new.html.twig', [
             'document' => $document,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="document_show", methods={"GET"})
@@ -96,6 +102,7 @@ class DocumentController extends AbstractController
             'document' => $document,
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="document_edit", methods={"GET","POST"})
@@ -119,10 +126,7 @@ class DocumentController extends AbstractController
                 throw new BadRequestHttpException('description cannot be empty');
             }
 
-            
             $file = $form->get('file')->getData();
-            
-
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($file) {
@@ -145,8 +149,10 @@ class DocumentController extends AbstractController
                 // instead of its contents
                 $document->setFile($newFilename);
             }
+
             $this->getDoctrine()->getManager()->persist($document);
             $this->getDoctrine()->getManager()->flush();
+
 
             return $this->redirectToRoute('document_index');
         }
@@ -156,6 +162,7 @@ class DocumentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="document_delete", methods={"DELETE"})
@@ -168,6 +175,7 @@ class DocumentController extends AbstractController
             $entityManager->flush();
         }
 
+        
         return $this->redirectToRoute('document_index');
     }
 }

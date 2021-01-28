@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("admin/partner")
  */
@@ -23,10 +24,12 @@ class PartnerController extends AbstractController
             ->getRepository(Partner::class)
             ->findAll();
 
+            
         return $this->render('admin/partner/index.html.twig', [
             'partners' => $partners,
         ]);
     }
+
 
     /**
      * @Route("/new", name="partner_new", methods={"GET","POST"})
@@ -42,14 +45,17 @@ class PartnerController extends AbstractController
             $entityManager->persist($partner);
             $entityManager->flush();
 
+
             return $this->redirectToRoute('partner_index');
         }
+
 
         return $this->render('admin/partner/new.html.twig', [
             'partner' => $partner,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="partner_show", methods={"GET"})
@@ -61,6 +67,7 @@ class PartnerController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}/edit", name="partner_edit", methods={"GET","POST"})
      */
@@ -70,18 +77,20 @@ class PartnerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->getDoctrine()->getManager()->persist($partner);
             $this->getDoctrine()->getManager()->flush();
 
+
             return $this->redirectToRoute('partner_index');
         }
+
 
         return $this->render('admin/partner/edit.html.twig', [
             'partner' => $partner,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="partner_delete", methods={"DELETE"})
@@ -93,6 +102,7 @@ class PartnerController extends AbstractController
             $entityManager->remove($partner);
             $entityManager->flush();
         }
+
 
         return $this->redirectToRoute('partner_index');
     }

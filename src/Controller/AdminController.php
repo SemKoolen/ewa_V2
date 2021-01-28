@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("/admin")
  */
@@ -29,7 +30,6 @@ class AdminController extends AbstractController
      */
     public function showBeheerAction()
     {
-
         return $this->render('admin/showBeheer.html.twig');
     }
 
@@ -40,14 +40,19 @@ class AdminController extends AbstractController
     public function beheerNieuwsAction(PostRepository $postRepository): Response
     {
         $news = $postRepository->findBy([], ['id' => 'DESC']);
+
         foreach($news as $nw)
         {   
             $nw->setContent($nw->getContent());
         }
+
+
         return $this->render('admin/post/index.html.twig', [
             'posts' => $news,
         ]);
     }
+
+
     //    beheer partners
     /**
      * @Route("/Partners", name="beheerPartners", methods={"GET"})
@@ -55,11 +60,14 @@ class AdminController extends AbstractController
     public function beheerPartnersAction(PartnerRepository $partnerRepository): Response
     {   
         $partners = $partnerRepository->findAll();
-        return new Response(var_dump($partners));
+
+
         return $this->render('admin/partner/index.html.twig', [
             'partners' => $partnerRepository->findAll(),
         ]);
     }
+
+
     //    beheer contacten
     /**
      * @Route("/Contacten", name="beheerContacten", methods={"GET"})
@@ -70,6 +78,8 @@ class AdminController extends AbstractController
             'contacten' => $contactRepository->findAll(),
         ]);
     }
+
+
     //    beheer informatie
     /**
      * @Route("/Informatie", name="beheerInformatie", methods={"GET"})
@@ -81,8 +91,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-//    het verwijderen van contacten ivm AVG
 
+    //    het verwijderen van contacten ivm AVG=
     /**
      * @Route("/{id}/delete", name="contact_delete", methods={"DELETE"})
      */
@@ -94,6 +104,7 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
+        
         return $this->redirectToRoute('beheerContacten');
     }
 
@@ -108,6 +119,7 @@ class AdminController extends AbstractController
             'Beheer' => 'showBeheer',
             'Uitloggen' => 'app_logout',
         ];
+
 
         return $this->render('navBar.html.twig', [
             'routes' => $routes,

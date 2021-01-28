@@ -38,7 +38,6 @@ section.headIntro .container {
     margin: auto;
 }
 
-
 section:not(.headIntro){
     padding-bottom: 30px;
 }
